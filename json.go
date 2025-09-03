@@ -20,12 +20,9 @@ func respondWithJson(writer http.ResponseWriter, code int, payload any) {
 		return
 	}
 
-	if _, err := writer.Write(data); err != nil {
-		writer.WriteHeader(http.StatusInternalServerError)
-		log.Printf("writing response body failed: %v\n", err)
-		return
-	}
-
 	writer.Header().Set(contenttype, appJson)
 	writer.WriteHeader(code)
+	if _, err := writer.Write(data); err != nil {
+		log.Printf("writing response body failed: %v\n", err)
+	}
 }
