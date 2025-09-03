@@ -1,2 +1,4 @@
 out
 http_tests.http
+.env
+chirpy
