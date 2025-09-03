@@ -7,6 +7,8 @@ import (
 )
 
 func respondWithError(writer http.ResponseWriter, code int, msg string) {
+	log.Println(msg)
+
 	respondWithJson(writer, code, struct {
 		Error string `json:"error"`
 	}{Error: msg})
