@@ -73,3 +73,24 @@ func removeProfanity(body string) string {
 
 	return strings.Join(words, " ")
 }
+
+func (cfg *apiConfig) getChirpsHandler(writer http.ResponseWriter, req *http.Request) {
+	dbChirps, err := cfg.dbQueries.GetAllChirps(req.Context())
+	if err != nil {
+		respondWithError(writer, http.StatusInternalServerError, fmt.Sprintf("Getting chirps from db failed: %v.", err))
+		return
+	}
+
+	chirps := make([]Chirp, len(dbChirps))
+	for i, chirp := range dbChirps {
+		chirps[i] = Chirp{
+			ID:        chirp.ID,
+			CreatedAt: chirp.CreatedAt,
+			UpdatedAt: chirp.UpdatedAt,
+			Body:      chirp.Body,
+			UserID:    chirp.UserID,
+		}
+	}
+
+	respondWithJson(writer, http.StatusOK, chirps)
+}
