@@ -55,12 +55,12 @@ func main() {
 
 	mux.Handle("/app/", fileserverHandler)
 
-	mux.HandleFunc("GET /api/healthz", healthzHandlerFunc)
-	mux.HandleFunc("POST /api/validate_chirp", validateChirpHandlerFunc)
-	mux.HandleFunc("POST /api/users", apiCfg.usersHandlerFunc)
+	mux.HandleFunc("GET /api/healthz", getHealthzHandler)
+	mux.HandleFunc("POST /api/chirps", apiCfg.postChirpHandler)
+	mux.HandleFunc("POST /api/users", apiCfg.postUserHandler)
 
-	mux.HandleFunc("GET /admin/metrics", apiCfg.metricsHandlerFunc)
-	mux.HandleFunc("POST /admin/reset", apiCfg.resetHandlerFunc)
+	mux.HandleFunc("GET /admin/metrics", apiCfg.getMetricsHandler)
+	mux.HandleFunc("POST /admin/reset", apiCfg.postResetHandler)
 
 	server := &http.Server{
 		Addr:    ":" + port,

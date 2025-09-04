@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func (cfg *apiConfig) metricsHandlerFunc(writer http.ResponseWriter, req *http.Request) {
+func (cfg *apiConfig) getMetricsHandler(writer http.ResponseWriter, req *http.Request) {
 	writer.Header().Add(contenttype, textHtml)
 	writer.WriteHeader(http.StatusOK)
 	writer.Write(fmt.Appendf(

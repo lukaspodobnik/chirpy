@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func (cfg *apiConfig) resetHandlerFunc(writer http.ResponseWriter, req *http.Request) {
+func (cfg *apiConfig) postResetHandler(writer http.ResponseWriter, req *http.Request) {
 	if cfg.platform != "dev" {
 		respondWithError(writer, http.StatusForbidden, "Reset only allowed in dev environment.")
 		return
